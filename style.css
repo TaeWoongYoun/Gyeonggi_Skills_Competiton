@@ -108,3 +108,49 @@ footer {
       background-image: url(/img/slide3.jpg);
     }
   }
+
+/* 메인페이지 -> 공지사항 영역 */
+input[name="news"] {
+    display: none;
+}
+
+.news {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    margin-top: 50px;
+    text-align: center;
+}
+
+h1 {
+    font-weight: 200;
+    margin-bottom: 20px;
+}
+
+.news > div label{
+    margin: 0 20px;
+    cursor: pointer;
+}
+
+.news input:checked + label {
+    font-weight: 800;
+    font-size: 17px;
+}
+
+.news_table {
+    justify-content: center;
+    margin-top: 30px;
+    display: none;
+}
+
+#문화:checked ~ #문화Table,
+#교육:checked ~ #교육Table,
+#체험:checked ~ #체험Table {
+    display: flex;
+}
+
+.news_table table td,
+.news_table table th {
+    border-bottom: 1px solid black;
+    padding: 15px 20px;
+}
