@@ -87,25 +87,24 @@ footer {
     width: 1000px;
     height: 500px;
     margin: 0 auto;
-    background-size: cover;
+    background-size: 100% 100%;
     animation: slideAnimation 12s infinite linear;
 }
 
 @keyframes slideAnimation {
-
     0%,
-    33.33%,
+    30%,
     100% {
-        background-image: url(./img/slide1.jpg);
+      background-image: url(/img/slide1.jpg);
     }
-
-    33.34%,
-    66.66% {
-        background-image: url(./img/slide2.jpg);
+  
+    33%,
+    63% {
+      background-image: url(/img/slide2.jpg);
     }
-
-    66.67%,
-    99.99% {
-        background-image: url(./img/slide3.jpg);
+  
+    66%,
+    96% {
+      background-image: url(/img/slide3.jpg);
     }
-}
+  }
