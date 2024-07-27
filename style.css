@@ -27,6 +27,7 @@ header {
     justify-content: space-around;
     height: 80px;
     text-align: center;
+    z-index: 100000;
 }
 
 header>ul {
@@ -92,22 +93,23 @@ footer {
 }
 
 @keyframes slideAnimation {
+
     0%,
     30%,
     100% {
-      background-image: url(/img/slide1.jpg);
+        background-image: url(/img/slide1.jpg);
     }
-  
+
     33%,
     63% {
-      background-image: url(/img/slide2.jpg);
+        background-image: url(/img/slide2.jpg);
     }
-  
+
     66%,
     96% {
-      background-image: url(/img/slide3.jpg);
+        background-image: url(/img/slide3.jpg);
     }
-  }
+}
 
 /* 메인페이지 -> 공지사항 영역 */
 input[name="news"] {
@@ -127,12 +129,12 @@ h1 {
     margin-bottom: 20px;
 }
 
-.news > div label{
+.news>div label {
     margin: 0 20px;
     cursor: pointer;
 }
 
-.news input:checked + label {
+.news input:checked+label {
     font-weight: 800;
     font-size: 17px;
 }
@@ -143,9 +145,9 @@ h1 {
     display: none;
 }
 
-#문화:checked ~ #문화Table,
-#교육:checked ~ #교육Table,
-#체험:checked ~ #체험Table {
+#문화:checked~#문화Table,
+#교육:checked~#교육Table,
+#체험:checked~#체험Table {
     display: flex;
 }
 
@@ -153,4 +155,59 @@ h1 {
 .news_table table th {
     border-bottom: 1px solid black;
     padding: 15px 20px;
+}
+
+/* 메인페이지 -> 갤러리 영역 */
+.gallery {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#gallery_img1 {
+    background-image: url(./img/gallery1.jpg);
+    background-size: cover;
+}
+
+#gallery_img2 {
+    background-image: url(./img/gallery2.jpg);
+    background-size: cover;
+}
+
+#gallery_img3 {
+    background-image: url(./img/gallery3.jpg);
+    background-size: cover;
+}
+
+.scroll-container,
+.scroll-area {
+    max-width: 1000px;
+    height: 600px;
+    font-size: 60px;
+}
+
+.scroll-container {
+    overflow: auto;
+    scroll-snap-type: y mandatory;
+}
+
+.scroll-area {
+    scroll-snap-align: start;
+}
+
+.scroll-container,
+.scroll-area {
+    margin: 0 auto;
+}
+
+.scroll-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scroll-area h4 {
+    color: white;
+    background-color: rgb(0, 0, 0, 0.7);
+    font-weight: 200;
+    border-radius: 10px;
 }
