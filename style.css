@@ -29,29 +29,30 @@ header {
     text-align: center;
 }
 
-header > ul {
+header>ul {
     display: flex;
     margin-top: 30px;
 }
 
-header > ul > li {
+header>ul>li {
     width: 190px;
 }
 
-header ul > li > ul {
+header ul>li>ul {
     display: none;
+    background-color: white;
 }
 
-header ul > li:hover ul {
+header ul>li:hover ul {
     display: block;
 }
 
-header ul > li > ul > li {
+header ul>li>ul>li {
     margin: 20px 0;
 }
 
-header ul > li > ul > li > a:hover,
-header ul > li > a:hover,
+header ul>li>ul>li>a:hover,
+header ul>li>a:hover,
 .now {
     font-weight: 600;
 }
@@ -79,4 +80,32 @@ footer {
 
 .SNS_img {
     width: 30px;
+}
+
+/* 메인페이지 -> 비주얼 영역 */
+.slideBox {
+    width: 1000px;
+    height: 500px;
+    margin: 0 auto;
+    background-size: cover;
+    animation: slideAnimation 12s infinite linear;
+}
+
+@keyframes slideAnimation {
+
+    0%,
+    33.33%,
+    100% {
+        background-image: url(./img/slide1.jpg);
+    }
+
+    33.34%,
+    66.66% {
+        background-image: url(./img/slide2.jpg);
+    }
+
+    66.67%,
+    99.99% {
+        background-image: url(./img/slide3.jpg);
+    }
 }
