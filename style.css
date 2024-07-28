@@ -145,6 +145,10 @@ h1 {
     display: none;
 }
 
+.news_table tr:hover {
+    font-weight: 800;
+}
+
 #문화:checked~#문화Table,
 #교육:checked~#교육Table,
 #체험:checked~#체험Table {
@@ -155,6 +159,12 @@ h1 {
 .news_table table th {
     border-bottom: 1px solid black;
     padding: 15px 20px;
+}
+
+.news_img {
+    width: 100px;
+    height: 100px;
+    border-radius: 15px;
 }
 
 /* 메인페이지 -> 갤러리 영역 */
