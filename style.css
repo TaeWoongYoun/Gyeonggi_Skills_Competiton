@@ -260,5 +260,90 @@ h1 {
 }
 
 .rule ul li:hover {
-    background-color: rgb(208, 208, 208);
+  background-color: rgb(208, 208, 208);
+}
+
+/* 문화달력 페이지 */
+.calendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h2 {
+  font-weight: 200;
+}
+
+.to_calender {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-top: 15px;
+  width: 1200px;
+}
+
+.calendar table th,
+.calendar table td {
+  padding: 10px 50px;
+  padding-bottom: 60px;
+  background-color: rgb(227, 227, 227);
+  border-radius: 5px;
+}
+
+.guide {
+  margin-top: 50px;
+}
+
+.guide_menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendar_menu input {
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid black;
+}
+
+.guide_menu button,
+.calendar_menu button,
+.to_calender button {
+  padding: 5px 10px;
+  margin: 0 10px;
+  border: 0;
+  border-radius: 5px;
+  background-color: black;
+  color: white;
+  cursor: pointer;
+}
+
+.guide_menu select {
+  width: 70px;
+  height: 30px;
+  margin: 10px;
+  text-align: center;
+  border-radius: 5px;
+}
+
+.guide_table {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+
+.guide_table td,
+.guide_table th {
+  border-bottom: 1px solid black;
+}
+
+.guide_table th {
+  padding: 10px;
+}
+
+.guide_img {
+  width: 80px;
+  height: 80px;
+  margin: 15px;
 }
