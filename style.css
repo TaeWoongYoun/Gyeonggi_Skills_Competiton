@@ -263,6 +263,85 @@ h1 {
   background-color: rgb(208, 208, 208);
 }
 
+/* 달빛기행축제란 페이지 -> 관람 동선 안내 영역 */
+.course {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 50px;
+}
+
+.course_img {
+    position: relative;
+    background-image: url(./공통제공파일/A모듈/map/map.png);
+    width: 1280px;
+    height: 700px;
+    background-size: 100% 100%;
+}
+
+.course_num {
+    width: 50px;
+    height: 50px;
+    background-color: yellow;
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border-radius: 100%;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+}
+
+.course_number {
+    font-size: 25px;
+}
+
+.course_ex {
+    position: absolute;
+    top: 55px;
+    white-space: nowrap;
+    z-index: 9998;
+    left: 50%;
+    transform: translateX(-50%);
+    color: white;
+    background-color: rgb(0, 0, 0, 0.7);
+    padding: 10px;
+    border-radius: 10px;
+    display: none;
+}
+
+.course_num:hover  .course_ex {
+    display: block;
+}
+
+#course_1{
+    left: 540px;
+    top: 100px;
+}
+#course_2 {
+    left: 640px;
+    top: 130px;
+}
+#course_3 {
+    left: 590px;
+    top: 220px;
+}
+#course_4 {
+    left: 740px;
+    top: 300px;
+}
+#course_5 {
+    left: 690px;
+    top: 380px;
+}
+#course_6 {
+    left: 545px;
+    top: 400px;
+}
+
 /* 문화달력 페이지 */
 .calendar {
   display: flex;
