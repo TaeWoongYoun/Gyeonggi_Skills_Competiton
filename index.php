@@ -23,5 +23,6 @@ switch ($resource[1]) {
         echo "잘못된 접근입니다.";
         break;
 }
-
+include ("./componets/header.php");
 include ($page);
+include ("./componets/footer.php");
