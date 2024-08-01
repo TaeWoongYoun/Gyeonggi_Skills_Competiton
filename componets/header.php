@@ -1,6 +1,6 @@
     <!-- 헤더 시작 -->
     <header>
-        <a href="./"><img class="logo" src="../logo.png" alt="logo" title="logo"></a>
+        <a href="./"><img class="logo" src="./logo.png" alt="logo" title="logo"></a>
         <ul>
             <li><a href="#">소개</a>
                 <ul>
@@ -21,8 +21,8 @@
             <li><a href="#">마이페이지</a></li>
         </ul>
         <ul>
-            <li><a href="#">로그인</a></li>
-            <li><a href="#">회원가입</a></li>
+            <li><a href="./login">로그인</a></li>
+            <li><a href="./register">회원가입</a></li>
         </ul>
     </header>
     <!-- 헤더 끝 -->
