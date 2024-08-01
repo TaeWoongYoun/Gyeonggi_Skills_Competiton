@@ -16,7 +16,7 @@
             <input id="name" type="text" placeholder="이름을 입력해주세요."> <br>
             <input id="password" type="password" placeholder="비밀번호를 입력해주세요." readonly> <br>
 
-            <button type="button">회원가입하기</button>
+            <button type="button" onclick="register()">회원가입하기</button>
         </form>
     </div>
     <div id="virtual-keyboard" class="keyboard">

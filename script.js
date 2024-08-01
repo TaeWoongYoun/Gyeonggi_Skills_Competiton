@@ -351,3 +351,56 @@ $(document).ready(function () {
     event.preventDefault();
   });
 });
+
+function register() {
+  const username = document.querySelector("#username").value;
+  const name = document.querySelector("#name").value;
+  const password = document.querySelector("#password").value;
+
+  // 한글만 입력
+  function regexNameCheck(name) {
+    const regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+    if (regExp.test(name)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  // 영어, 숫자만 입력
+  function regexUsernameCheck(username) {
+    const regExp = /^[a-zA-Z0-9]+$/;
+    if (regExp.test(username)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  if (!username) {
+    alert("아이디를 입력해주세요.");
+  } else if (!name) {
+    alert("이름을 입력해주세요.");
+  } else if (!password) {
+    alert("비밀번호를 입력해주세요.");
+  } else if (regexNameCheck(name) == false) {
+    alert("이름은 한글만 입력가능합니다.");
+  } else if (regexUsernameCheck(username) == false) {
+    alert("아이디는 영문&숫자만 입력가능합니다.");
+  } else {
+    $.post("./api/register", {
+      username: username,
+      name: name,
+      password: password,
+    }).done(function (data) {
+      if (data == "회원가입이 완료되었습니다.") {
+        alert(data);
+        location.href = "./login";
+      } else if (data == "중복된 아이디입니다.") {
+        alert(data);
+      } else {
+        alert("회원가입에 실패하였습니다.");
+      }
+    });
+  }
+}
