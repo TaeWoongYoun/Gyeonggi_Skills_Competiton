@@ -34,6 +34,7 @@
 
   <div id="course_time_list"></div>
 
+  <script src="./공통제공파일/jquery/jquery.js"></script>
   <script src="./script.js"></script>
   <script>
     courseIntriduction();

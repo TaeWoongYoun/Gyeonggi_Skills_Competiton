@@ -83,6 +83,8 @@
     </div>
   </div>
   <!-- 관람 동선 안내 영역 끝 -->
+  <script src="./공통제공파일/jquery/jquery.js"></script>
+  <script src="./script.js"></script>
 </body>
 
 </html>

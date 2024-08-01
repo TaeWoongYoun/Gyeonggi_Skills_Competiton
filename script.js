@@ -235,3 +235,75 @@ const speed = {
     courseIntriduction();
     document.getElementById('step').addEventListener('change', updateTables);
   });
+
+  function register() {
+    
+  }
+
+  $(document).ready(function() {
+    const passwordInput = $('#password');
+    const virtualKeyboard = $('#virtual-keyboard');
+    const keyContainer1 = $('#key-container-1');
+    const keyContainer2 = $('#key-container-2');
+    const keyContainer3 = $('#key-container-3');
+
+    let isCapsLock = false;
+
+    const generateRandomKeys = () => {
+        const keys = 'abcdefghijklmnopqrstuvwxyz0123456789'.split('');
+        for (let i = keys.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [keys[i], keys[j]] = [keys[j], keys[i]];
+        }
+        return keys;
+    };
+
+    const renderKeyboard = () => {
+        keyContainer1.empty();
+        keyContainer2.empty();
+        keyContainer3.empty();
+        const keys = generateRandomKeys();
+        const rows = [keyContainer1, keyContainer2, keyContainer3];
+        let currentRow = 0;
+
+        keys.forEach((key, index) => {
+            if (index > 0 && index % 10 === 0) {
+                currentRow++;
+            }
+            const keyButton = $('<button class="key"></button>');
+            keyButton.text(isCapsLock ? key.toUpperCase() : key.toLowerCase());
+            keyButton.data('key', key);
+            rows[currentRow].append(keyButton);
+        });
+    };
+
+    passwordInput.on('focus', () => {
+        virtualKeyboard.css('display', 'flex');
+        renderKeyboard();
+    });
+
+    $(document).on('mousedown', (event) => {
+        if (!virtualKeyboard.is(event.target) && !$.contains(virtualKeyboard[0], event.target) && event.target !== passwordInput[0]) {
+            virtualKeyboard.css('display', 'none');
+        }
+    });
+
+    virtualKeyboard.on('mousedown', '.key', (event) => {
+        const key = $(event.target).data('key');
+
+        if (key === 'Shift' || key === 'CapsLock' || key === 'Backspace') {
+            if (key === 'CapsLock') {
+                isCapsLock = !isCapsLock;
+                renderKeyboard();
+            } else if (key === 'Backspace') {
+                passwordInput.val(passwordInput.val().slice(0, -1));
+            }
+        } else {
+            passwordInput.val(passwordInput.val() + (isCapsLock ? key.toUpperCase() : key.toLowerCase()));
+        }
+    });
+
+    passwordInput.on('keydown', (event) => {
+        event.preventDefault();
+    });
+});

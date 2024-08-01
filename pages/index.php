@@ -170,6 +170,8 @@
     </div>
 
     <!-- 갤러리 영역 끝 -->
+    <script src="./공통제공파일/jquery/jquery.js"></script>
+    <script src="./script.js"></script>
 </body>
 
 </html>

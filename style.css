@@ -388,7 +388,9 @@ h2 {
 
 .guide_menu button,
 .calendar_menu button,
-.to_calender button {
+.to_calender button,
+.register button,
+.login button {
   padding: 5px 10px;
   margin: 0 10px;
   border: 0;
@@ -531,4 +533,71 @@ h2 {
 
 #course_time_list td {
   cursor: pointer;
+}
+
+/* 회원가입&로그인 페이지 */
+.register,
+.login {
+  text-align: center;
+}
+
+.register input,
+.login input {
+  padding: 10px 15px;
+  width: 300px;
+  margin: 10px;
+}
+
+.register button,
+.login button {
+  margin-top: 10px;
+  padding: 10px;
+}
+
+.register {
+  text-align: center;
+  margin: 20px;
+}
+
+/* 회원가입 페이지 －＞ 가상키보드 */
+input[type="text"],
+input[type="password"] {
+  width: 300px;
+  padding: 10px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.keyboard {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background-color: white;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+}
+
+.key {
+  padding: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  flex: 1;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+}
+
+.special {
+  background-color: #f0f0f0;
 }
