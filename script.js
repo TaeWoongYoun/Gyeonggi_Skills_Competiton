@@ -249,8 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("step").addEventListener("change", updateTables);
 });
 
-function register() {}
-
 $(document).ready(function () {
   const passwordInput = $("#password");
   const virtualKeyboard = $("#virtual-keyboard");
@@ -261,9 +259,12 @@ $(document).ready(function () {
   let isCapsLock = false;
   let isShiftActive = false;
 
-  // Function to generate random keys
-  const generateRandomKeys = () => {
-    const keys = "abcdefghijklmnopqrstuvwxyz0123456789".split("");
+  // Function to generate a full set of keys
+  const generateFullKeySet = () => {
+    const keys =
+      "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789".split(
+        ""
+      );
     for (let i = keys.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
       [keys[i], keys[j]] = [keys[j], keys[i]];
@@ -276,22 +277,22 @@ $(document).ready(function () {
     keyContainer1.empty();
     keyContainer2.empty();
     keyContainer3.empty();
-    const keys = generateRandomKeys();
+
+    const keys = generateFullKeySet();
     const rows = [keyContainer1, keyContainer2, keyContainer3];
+
     let currentRow = 0;
+    const maxKeysPerRow = Math.ceil(keys.length / rows.length);
 
     keys.forEach((key, index) => {
-      if (index > 0 && index % 10 === 0) {
+      if (index > 0 && index % maxKeysPerRow === 0) {
         currentRow++;
       }
+
       const keyButton = $('<button class="key"></button>');
-      // If Shift is active, make letters uppercase but keep numbers unchanged
-      if (isShiftActive || isCapsLock) {
-        if (isNaN(key)) {
-          keyButton.text(key.toUpperCase());
-        } else {
-          keyButton.text(key);
-        }
+      // Shift or CapsLock logic for uppercase letters
+      if ((isShiftActive || isCapsLock) && isNaN(key)) {
+        keyButton.text(key.toUpperCase());
       } else {
         keyButton.text(key.toLowerCase());
       }
@@ -308,11 +309,10 @@ $(document).ready(function () {
 
   // Event to close keyboard when clicking outside
   $(document).on("mousedown", (event) => {
-    // Only close keyboard if clicking outside of the input and keyboard
     if (
       !virtualKeyboard.is(event.target) &&
       !$.contains(virtualKeyboard[0], event.target) &&
-      !passwordInput.is(event.target)
+      event.target !== passwordInput[0]
     ) {
       virtualKeyboard.css("display", "none");
     }
@@ -320,8 +320,6 @@ $(document).ready(function () {
 
   // Event for key press on the virtual keyboard
   virtualKeyboard.on("mousedown", ".key", (event) => {
-    event.stopPropagation(); // Prevent closing when clicking on keys
-
     const key = $(event.target).data("key");
 
     if (key === "Shift") {
@@ -343,6 +341,9 @@ $(document).ready(function () {
         renderKeyboard(); // Re-render keyboard to reset shift state
       }
     }
+
+    // Prevent default keyboard close behavior
+    event.stopPropagation(); // Ensure that clicking the keyboard doesn't close it
   });
 
   // Prevent typing directly into the password input
