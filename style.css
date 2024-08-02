@@ -679,3 +679,42 @@ input[type="password"] {
 .slider-thumb:active {
   background-color: #0056b3;
 }
+
+/* reservation 페이지 -> 관리자 영역 */
+.course_add {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  margin: 0 auto;
+  border: 1px black solid;
+  border-radius: 20px;
+  width: 500px;
+  padding: 50px;
+}
+
+.course_add > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px;
+}
+
+.course_add > div h6 {
+  margin: 0 10px;
+}
+
+.course_add select,
+.course_add input {
+  width: 200px;
+  height: 30px;
+  text-align: center;
+}
+
+.course > table th,
+.course > table td {
+  text-align: center;
+  border-bottom: 1px black solid;
+  padding: 10px;
+}

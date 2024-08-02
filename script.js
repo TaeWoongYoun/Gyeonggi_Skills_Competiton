@@ -548,3 +548,50 @@ function login() {
 sliderThumb.addEventListener("mousedown", handleMouseDown); // 마우스 다운 이벤트
 document.addEventListener("mouseup", handleMouseUp); // 마우스 업 이벤트
 document.addEventListener("mousemove", handleMouseMove); // 마우스 이동 이벤트
+
+// 관리자 영역 -> 코스 등록
+function courseAdd() {
+  const course_name = document.querySelector("#course_name").value;
+  const course_date = document.querySelector("#course_date").value;
+  const course_start_time = document.querySelector("#course_start_time").value;
+
+  if (!course_date) {
+    alert("코스 진행 날짜를 입력해주세요.");
+  } else if (!course_start_time) {
+    alert("코스 시작 시간을 입력해주세요.");
+  } else if (course_start_time >= 24) {
+    alert("시간은 23시까지 입력가능합니다.");
+  } else {
+    $.post("./api/courseAdd", {
+      course_name: course_name,
+      course_date: course_date,
+      course_start_time: course_start_time,
+      courseAdd: true
+    }).done(function (data) {
+      // console.log(data);
+      if (data == "코스가 등록되었습니다.") {
+        alert(data);
+      } else if(data == "중복된 날짜입니다."){
+        alert(data);
+      } else {
+        alert(data);
+      }
+    });
+  }
+}
+
+function courseCheck() {
+  const course_name = document.querySelector("#course_name").value;
+  const course_date = document.querySelector("#course_date").value;
+  const course_start_time = document.querySelector("#course_start_time").value;
+
+  $.post("./api/courseAdd", {
+    course_name: course_name,
+    course_date: course_date,
+    course_start_time: course_start_time,
+  }).done(function (data){
+    if(data == "중복된 날짜입니다") {
+      document.querySelector("#courseAdd_btn").disabled = false;
+    }
+  });
+}
