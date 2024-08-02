@@ -21,8 +21,15 @@
             <li><a href="#">마이페이지</a></li>
         </ul>
         <ul>
-            <li><a href="./login">로그인</a></li>
-            <li><a href="./register">회원가입</a></li>
+            <?php
+            if(isset($_SESSION["user_idx"])) {
+                echo "<li><a href='./logout'>로그아웃</a></li>";
+                echo "<li><a href='./mypage'>마이페이지</a></li>";
+            } else {
+                echo "<li><a href='./login'>로그인</a></li>";
+                echo "<li><a href='./register'>회원가입</a></li>";
+            }
+            ?>
         </ul>
     </header>
     <!-- 헤더 끝 -->
