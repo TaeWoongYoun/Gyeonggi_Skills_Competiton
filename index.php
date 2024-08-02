@@ -1,5 +1,6 @@
 <?php
 include "./config/DBconnect.php";
+session_start();
 $request = $_SERVER['REQUEST_URI'];
 $path = explode("?", $request);
 $path[1] = isset($path[1]) ? $path[1] : null;
@@ -10,6 +11,9 @@ if ($resource[1] == "api") {
     switch ($resource[2]) {
         case "register":
             $page = "./api/register.php";
+            break;
+        case "login":
+            $page = "./api/login.php";
             break;
         default:
             echo "잘못된 접근입니다.";
