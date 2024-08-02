@@ -40,6 +40,12 @@ if ($resource[1] == "api") {
         case "login":
             $page = "./pages/login.php";
             break;
+        case "logout":
+            $page = "./pages/logout.php";
+            break;
+        case "reservation":
+            $page = "./pages/reservation.php";
+            break;
         default:
             echo "잘못된 접근입니다.";
             break;
