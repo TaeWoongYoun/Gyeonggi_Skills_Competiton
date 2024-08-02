@@ -17,17 +17,17 @@
                 </ul>
             </li>
             <li><a href="#">굿즈SHOP</a></li>
-            <li><a href="#">예약하기</a></li>
-            <li><a href="#">마이페이지</a></li>
+            <li><a href="./reservation">예약하기</a></li>
+            <li><a href="./mypage">마이페이지</a></li>
         </ul>
         <ul>
             <?php
             if(isset($_SESSION["user_idx"])) {
+                echo "<li>" . $_SESSION['name'] . "님</li>";
                 echo "<li><a href='./logout'>로그아웃</a></li>";
-                echo "<li><a href='./mypage'>마이페이지</a></li>";
             } else {
-                echo "<li><a href='./login'>로그인</a></li>";
                 echo "<li><a href='./register'>회원가입</a></li>";
+                echo "<li><a href='./login'>로그인</a></li>";
             }
             ?>
         </ul>

@@ -13,6 +13,7 @@ if (!$user) {
 } else {
     $_SESSION["user_idx"] = $user["user_idx"];
     $_SESSION["mb_level"] = $user["mb_level"];
+    $_SESSION["name"] = $user["name"];
     echo "로그인이 완료되었습니다.";
     
 }
