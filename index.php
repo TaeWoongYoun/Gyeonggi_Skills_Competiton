@@ -18,6 +18,9 @@ if ($resource[1] == "api") {
         case "courseAdd":
             $page = "./api/courseAdd.php";
             break;
+        case "reservation":
+            $page = "./api/reservation.php";
+            break;
         default:
             echo "잘못된 접근입니다.";
             break;
@@ -53,7 +56,7 @@ if ($resource[1] == "api") {
             echo "잘못된 접근입니다.";
             break;
     }
-    include("./componets/header.php");
+    include("./components/header.php");
     include($page);
-    include("./componets/footer.php");
+    include("./components/footer.php");
 }

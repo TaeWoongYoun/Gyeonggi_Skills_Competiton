@@ -352,31 +352,38 @@ $(document).ready(function () {
   });
 });
 
+// 한글만 입력
+function regexNameCheck(name) {
+  const regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
+  if (regExp.test(name)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// 영어, 숫자만 입력
+function regexUsernameCheck(username) {
+  const regExp = /^[a-zA-Z0-9]+$/;
+  if (regExp.test(username)) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+// 휴대폰 정규표현식
+const regexPhonNumber = (target) => {
+  target.value = target.value
+    .replace(/[^0-9]/g, "")
+    .replace(/^(\d{3})(\d{4})(\d{4})/, `$1-$2-$3`);
+};
+
 // 회원가입
 function register() {
   const username = document.querySelector("#username").value;
   const name = document.querySelector("#name").value;
   const password = document.querySelector("#password").value;
-
-  // 한글만 입력
-  function regexNameCheck(name) {
-    const regExp = /[ㄱ-ㅎㅏ-ㅣ가-힣]/g;
-    if (regExp.test(name)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  // 영어, 숫자만 입력
-  function regexUsernameCheck(username) {
-    const regExp = /^[a-zA-Z0-9]+$/;
-    if (regExp.test(username)) {
-      return true;
-    } else {
-      return false;
-    }
-  }
 
   if (!username) {
     alert("아이디를 입력해주세요.");
@@ -566,12 +573,13 @@ function courseAdd() {
       course_name: course_name,
       course_date: course_date,
       course_start_time: course_start_time,
-      courseAdd: true
+      courseAdd: true,
     }).done(function (data) {
       // console.log(data);
       if (data == "코스가 등록되었습니다.") {
         alert(data);
-      } else if(data == "중복된 날짜입니다."){
+        location.href = "./reservation";
+      } else if (data == "중복된 날짜입니다.") {
         alert(data);
       } else {
         alert(data);
@@ -589,9 +597,58 @@ function courseCheck() {
     course_name: course_name,
     course_date: course_date,
     course_start_time: course_start_time,
-  }).done(function (data){
-    if(data == "중복된 날짜입니다") {
+  }).done(function (data) {
+    if (data == "중복된 날짜입니다") {
       document.querySelector("#courseAdd_btn").disabled = false;
     }
   });
 }
+
+// let course_idx = null;  // 변수 선언 및 초기화
+
+function reservationModal(elem) {
+  $("#reservationModal").modal("show");
+
+  // course_idx 저장
+  course_idx = elem.parentElement.parentElement.id;
+  console.log(course_idx);
+}
+
+function reservation() {
+
+  const name = document.querySelector("#name").value;
+  const phoneNumber = document.querySelector("#phoneNumber").value;
+  const email = document.querySelector("#email").value;
+  const personnel_count = document.querySelector("#personnel_count").value;
+
+  if (!name) {
+    alert("이름을 입력해주세요.");
+  } else if (!phoneNumber) {
+    alert("전화번호를 입력해주세요.");
+  } else if (phoneNumber.length < 13) {
+    alert("전화번호를 다시 확인해주세요.");
+  } else if (!email) {
+    alert("이메일을 입력해주세요.");
+  } else if (personnel_count > 5) {
+    alert("최대 5명까지 예약 가능합니다.");
+  } else {
+    $.post("./api/reservation", {
+      name: name,
+      phoneNumber: phoneNumber,
+      email: email,
+      personnel_count: personnel_count,
+      course_idx: course_idx,
+      // course_idx: course_idx,
+    }).done(function (data) {
+      if (data === "예약이 완료되었습니다.") {
+        alert(data);
+        $("#reservationModal").modal("hide");
+        location.href = "./reservation";
+      } else {
+        alert("예약 실패");
+        $("#reservationModal").modal("hide");
+      }
+    });
+  }
+}
+

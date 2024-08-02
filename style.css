@@ -542,7 +542,8 @@ h2 {
 }
 
 .register input,
-.login input {
+.login input,
+#reservationModal input {
   padding: 10px 15px;
   width: 300px;
   margin: 10px;
@@ -717,4 +718,10 @@ input[type="password"] {
   text-align: center;
   border-bottom: 1px black solid;
   padding: 10px;
+}
+
+#reservationModal .modal-body > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
