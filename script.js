@@ -352,6 +352,7 @@ $(document).ready(function () {
   });
 });
 
+// 회원가입
 function register() {
   const username = document.querySelector("#username").value;
   const name = document.querySelector("#name").value;
@@ -404,3 +405,146 @@ function register() {
     });
   }
 }
+
+// CAPTCHA 퍼즐을 다루기 위한 JavaScript
+
+// HTML 요소 참조
+const sliderBar = document.getElementById("sliderBar");
+const sliderThumb = document.getElementById("sliderThumb");
+const puzzlePiece = document.getElementById("puzzlePiece");
+const puzzleSlot = document.getElementById("puzzleSlot");
+const captchaImage = document.getElementById("captchaImage");
+const modalElement = document.getElementById("captcha_modal");
+const loginButton = document.getElementById("loginButton"); // 로그인 버튼 참조
+let isDragging = false; // 드래그 상태 확인
+let startX, offsetX;
+
+// 랜덤 이미지를 위한 이미지 소스 배열
+const imageSources = [
+  "../공통제공파일/C모듈/capcha/1.jpg",
+  "../공통제공파일/C모듈/capcha/2.jpg",
+  "../공통제공파일/C모듈/capcha/3.jpg",
+  "../공통제공파일/C모듈/capcha/4.jpg",
+  "../공통제공파일/C모듈/capcha/5.jpg",
+];
+
+// CAPTCHA 모달을 표시하는 함수
+function showCaptchaModal() {
+  const username = document.querySelector("#username").value;
+  const login_password = document.querySelector("#login_password").value;
+
+  if (!username) {
+    alert("아이디를 입력해주세요.");
+  } else if (!login_password) {
+    alert("비밀번호를 입력해주세요.");
+  } else {
+    selectRandomCaptchaImage(); // 랜덤 이미지 선택
+    setRandomSlotPosition(); // 랜덤 슬롯 위치 설정
+    resetPuzzlePiece(); // 퍼즐 조각 위치 초기화
+
+    $("#captcha_modal").modal("show");
+  }
+}
+
+// 랜덤 CAPTCHA 이미지를 선택하는 함수
+function selectRandomCaptchaImage() {
+  const randomIndex = Math.floor(Math.random() * imageSources.length);
+  captchaImage.src = imageSources[randomIndex];
+}
+
+// 랜덤 퍼즐 슬롯 위치를 설정하는 함수
+function setRandomSlotPosition() {
+  const maxLeft = captchaImage.clientWidth - puzzleSlot.offsetWidth;
+  const randomLeft = Math.floor(Math.random() * maxLeft);
+  puzzleSlot.style.left = `${randomLeft}px`;
+}
+
+// 마우스 다운 이벤트 처리 함수
+function handleMouseDown(e) {
+  isDragging = true; // 드래그 상태 활성화
+  startX = e.clientX - sliderThumb.offsetLeft; // 드래그 시작 위치
+  sliderThumb.style.transition = "none"; // 애니메이션 없음
+  puzzlePiece.style.transition = "none"; // 애니메이션 없음
+}
+
+// 마우스 업 이벤트 처리 함수
+function handleMouseUp() {
+  if (isDragging) {
+    isDragging = false; // 드래그 상태 비활성화
+    sliderThumb.style.transition = "background-color 0.3s"; // 배경색 애니메이션
+    puzzlePiece.style.transition = "left 0.3s"; // 위치 애니메이션
+    checkPuzzleAccuracy(); // 퍼즐 정확도 체크
+  }
+}
+
+// 마우스 이동 이벤트 처리 함수
+function handleMouseMove(e) {
+  if (isDragging) {
+    offsetX = e.clientX - startX; // 현재 위치 계산
+    if (
+      offsetX >= 0 &&
+      offsetX <= sliderBar.clientWidth - sliderThumb.clientWidth
+    ) {
+      sliderThumb.style.left = offsetX + "px"; // 슬라이더 위치 업데이트
+      puzzlePiece.style.left =
+        offsetX *
+          ((sliderBar.clientWidth - puzzlePiece.clientWidth) /
+            (sliderBar.clientWidth - sliderThumb.clientWidth)) +
+        "px"; // 퍼즐 조각 위치 업데이트
+    }
+  }
+}
+
+// 퍼즐 위치 정확도를 체크하는 함수
+function checkPuzzleAccuracy() {
+  const slotLeft = puzzleSlot.getBoundingClientRect().left;
+  const pieceLeft = puzzlePiece.getBoundingClientRect().left;
+  const accuracy =
+    100 - (Math.abs(slotLeft - pieceLeft) / puzzleSlot.offsetWidth) * 100;
+
+  if (accuracy >= 90) {
+    // 90% 정확도 필요
+    sliderThumb.style.backgroundColor = "green"; // 성공 시 색상 변경
+    login(); // 로그인 함수 실행
+  } else {
+    sliderThumb.style.backgroundColor = "#007bff"; // 실패 시 초기 색상으로 변경
+    alert("정확도가 90% 미만입니다. 다시 시도하세요."); // 실패 메시지
+    resetPuzzlePiece(); // 퍼즐 조각 위치 초기화
+    selectRandomCaptchaImage(); // 새로운 랜덤 이미지 선택
+    setRandomSlotPosition(); // 새로운 랜덤 슬롯 위치 설정
+  }
+}
+
+// 퍼즐 조각을 초기 위치로 리셋하는 함수
+function resetPuzzlePiece() {
+  sliderThumb.style.left = "0"; // 슬라이더 위치 초기화
+  puzzlePiece.style.left = "0"; // 퍼즐 조각 위치 초기화
+}
+
+// 사용자 로그인을 시뮬레이션하는 함수
+function login() {
+  const username = document.querySelector("#username").value;
+  const login_password = document.querySelector("#login_password").value;
+
+  $.post("./api/login", {
+    username: username,
+    password: login_password,
+  }).done(function (data) {
+    if (data == "로그인이 완료되었습니다.") {
+      alert(data);
+      $("#captcha_modal").modal("hide");
+      location.href = "./";
+    } else if (data == "아이디 또는 비밀번호를 확인해주세요.") {
+      alert(data);
+      $("#captcha_modal").modal("hide");
+    } else {
+      alert("로그인에 실패하였습니다.");
+      $("#captcha_modal").modal("hide");
+    }
+  });
+}
+
+// 마우스 이벤트에 대한 이벤트 리스너
+sliderThumb.addEventListener("mousedown", handleMouseDown); // 마우스 다운 이벤트
+document.addEventListener("mouseup", handleMouseUp); // 마우스 업 이벤트
+document.addEventListener("mousemove", handleMouseMove); // 마우스 이동 이벤트

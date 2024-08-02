@@ -601,3 +601,81 @@ input[type="password"] {
 .special {
   background-color: #f0f0f0;
 }
+
+.modal {
+  z-index: 99999999999;
+}
+
+/* CAPTCHA 모달에 대한 스타일 */
+.captcha-container {
+  position: relative;
+  width: 300px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.captcha-image {
+  width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.puzzle-slot {
+  /* 퍼즐 조각이 들어갈 빈 공간 */
+  position: absolute;
+  top: 15px; /* 상단에서 15px 내려서 위치 조정 */
+  left: 120px; /* 중앙에 위치하도록 왼쪽에서 120px 떨어짐 */
+  width: 60px;
+  height: 100px; /* 세로 길이 감소 */
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 5px;
+  border: 2px dashed #ddd;
+  pointer-events: none;
+}
+
+.puzzle-piece {
+  /* 이동 가능한 퍼즐 조각 */
+  position: absolute;
+  top: 15px; /* 퍼즐 조각이 이미지 중앙에 오도록 */
+  left: 0;
+  width: 60px;
+  height: 100px; /* 세로 길이 감소 */
+  background-color: rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.slider-container {
+  width: 300px;
+  margin: 20px auto; /* 중앙 정렬 및 상단 마진 */
+  position: relative;
+  display: flex;
+  justify-content: center; /* 수평 중앙 정렬 */
+}
+
+.slider-bar {
+  /* 슬라이더 바 스타일 */
+  width: 100%;
+  height: 10px;
+  background-color: #ddd;
+  border-radius: 5px;
+  cursor: pointer;
+  position: relative;
+}
+
+.slider-thumb {
+  /* 슬라이더 이동 가능한 부분 */
+  position: absolute;
+  top: -5px;
+  left: 0;
+  width: 30px;
+  height: 20px;
+  background-color: #007bff;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.slider-thumb:active {
+  background-color: #0056b3;
+}
