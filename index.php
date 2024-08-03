@@ -1,4 +1,6 @@
 <?php
+// 날짜가 하루 늦어서, 오늘 날짜로 맞추는 코드 추가
+date_default_timezone_set('Asia/Seoul');
 include "./config/DBconnect.php";
 session_start();
 $request = $_SERVER['REQUEST_URI'];

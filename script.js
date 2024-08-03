@@ -638,7 +638,6 @@ function reservation() {
       email: email,
       personnel_count: personnel_count,
       course_idx: course_idx,
-      // course_idx: course_idx,
     }).done(function (data) {
       if (data === "예약이 완료되었습니다.") {
         alert(data);

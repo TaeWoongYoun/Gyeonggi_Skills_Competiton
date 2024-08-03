@@ -102,16 +102,20 @@ if (isset($_SESSION["mb_level"])) {
                     <th>예약버튼</th>
                 </tr>
                 <?php
-
                 $sql = "SELECT * FROM course ORDER BY current_personnel DESC";
                 $stmt = $pdo->prepare($sql);
                 $stmt->execute();
                 $courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-                
+
                 if ($courses) {
-                    $today = date('Y-m-d'); // 현재 날짜와 시간
+                    // 오늘 날짜 정의
+                    $today = new DateTime('now');
+                    // 시간 0으로 초기화
+                    $today = $today->setTime(0, 0, 0);
                     foreach ($courses as $course) {
+                        $courseDate = new DateTime($course["course_date"]);
+                        $courseDate = $courseDate->setTime(0, 0, 0);
 
                         $divinnerhtml = "";
                         $divinnerhtml .= "<tr id='" . $course["course_idx"] . "'>";
@@ -120,13 +124,14 @@ if (isset($_SESSION["mb_level"])) {
                         $divinnerhtml .= "<td>" . $course["course_date"] . "</td>";
                         $divinnerhtml .= "<td>" . $course["course_start_time"] . "시</td>";
                         $divinnerhtml .= "<td>" . $course["current_personnel"] . "</td>";
-                        // 여기 오늘 날짜랑 같은 course_date는 버튼 비활성화가 안되는데요;
-                        if (($course["current_personnel"] >= 20) || ($today >= $course["course_date"])) {
+                        
+                        if (($course["current_personnel"] >= 20) || ($today >= $courseDate)) {
                             $divinnerhtml .= "<td><button disabled onclick='reservationModal(this)' type='button' class='btn btn-dark'>예약하기</button></td>";
                         } else {
                             $divinnerhtml .= "<td><button onclick='reservationModal(this)' type='button' class='btn btn-dark'>예약하기</button></td>";
                         }
                         $divinnerhtml .= "</tr>";
+
                         echo $divinnerhtml;
                     }
                 }
